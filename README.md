@@ -39,13 +39,11 @@ It can be used as a standalone module to generate request objects containing inf
 
    ```js
    // Example: getting all documents where `name` contains "john" and age is greater than 18
-   api.in('users')
-       .whereFieldContains('name', 'john')
-       .whereFieldIsGreaterThan('age', 18)
-       .find()
-       .then(function (response) {
-         // Use documents here
-       })
+   const requestObject = api
+    .in('users')
+    .whereFieldContains('name', 'john')
+    .whereFieldIsGreaterThan('age', 18)
+    .find()
    ```
 
 ## Methods
