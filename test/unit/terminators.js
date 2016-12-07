@@ -33,7 +33,7 @@ var documents = [
   { _id: 2, name: 'Jane' }
 ]
 
-describe.only('Terminators', function (done) {
+describe('Terminators', function (done) {
   before(function (done) {
     // mockery.enable({
     //   warnOnReplace: false,
