@@ -56,20 +56,6 @@ These operations (with the exception of `create()`) can make use of a series of 
 
 ### Operations
 
-#### `.apply(callback)`
-
-Updates a list of documents with the result of individually applying `callback` to them.
-
-```js
-api.in('users')
-   .whereFieldExists('gender')
-   .apply(function (document) {
-      document.name = (document.gender === 'male') ? ('Mr ' + document.name) : ('Mrs ' + document.name)
-
-      return document
-   })
-```
-
 #### `.create()`
 
 Creates a document.
