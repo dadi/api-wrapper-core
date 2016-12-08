@@ -12,12 +12,12 @@
   "dependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dadi/api-wrapper.git"
+    "url": "git+https://github.com/dadi/api-wrapper-core.git"
   },
   "bugs": {
     "url": "https://github.com/dadi/api-wrapper/issues"
   },
-  "homepage": "https://github.com/dadi/api-wrapper",
+  "homepage": "https://github.com/dadi/api-wrapper-core",
   "devDependencies": {
     "istanbul": "^0.4.4",
     "istanbul-cobertura-badger": "^1.2.1",
