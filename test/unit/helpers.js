@@ -79,6 +79,18 @@ describe('Helpers', function (done) {
       done()
     })
 
+    it('should build /status url if option specified', function (done) {
+      var wrapperUrl = wrapper._buildURL({status:true})
+      wrapperUrl.should.eql('http://0.0.0.0:8000/api/status')
+      done()
+    })
+
+    it('should build /collections url if option specified', function (done) {
+      var wrapperUrl = wrapper._buildURL({collections:true})
+      wrapperUrl.should.eql('http://0.0.0.0:8000/api/collections')
+      done()
+    })
+
     it('should build /config url if option specified', function (done) {
       wrapper.useVersion('2.0').useDatabase('test').in('collectionOne')
       var wrapperUrl = wrapper._buildURL({config:true})
