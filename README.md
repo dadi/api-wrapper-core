@@ -157,6 +157,29 @@ api.in('users')
 
 - `extractMetadata` (Boolean): Selects whether just the metadata object should be returned, rather than the entire API response (i.e. using the `/count` endpoint(.
 
+#### `.getCollections()`
+
+Gets the list of collections for the API.
+
+```js
+api.getCollections()
+```
+
+*Output:*
+
+```json
+{
+  "method": "GET",
+  "uri": {
+    "href": "http://api.example.com:80/api/collections",
+    "hostname": "api.example.com",
+    "path": "/api/collections",
+    "port": "80",
+    "protocol": "http:"
+  }
+}
+```
+
 #### `.getConfig()`
 
 Gets the config for a collection or for the API.
@@ -220,6 +243,29 @@ api.in('users')
     "href": "http://api.example.com:80/api/stats",
     "hostname": "api.example.com",
     "path": "/api/stats",
+    "port": "80",
+    "protocol": "http:"
+  }
+}
+```
+
+#### `.getStatus()`
+
+Gets the the API status.
+
+```js
+api.getStatus()
+```
+
+*Output:*
+
+```json
+{
+  "method": "GET",
+  "uri": {
+    "href": "http://api.example.com:80/api/status",
+    "hostname": "api.example.com",
+    "path": "/api/status",
     "port": "80",
     "protocol": "http:"
   }
