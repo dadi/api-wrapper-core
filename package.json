@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "standard 'lib/**/*.js' && NODE_ENV=test ./node_modules/.bin/istanbul cover --report cobertura --report text --report html --report lcov ./node_modules/.bin/_mocha test",
-    "posttest": "./scripts/coverage.js"
+    "posttest": "./scripts/coverage.js && make"
   },
   "author": "Eduardo Boucas <mail@eduardoboucas.com>",
   "license": "GPL",
