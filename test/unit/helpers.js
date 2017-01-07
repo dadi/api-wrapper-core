@@ -30,18 +30,44 @@ describe('Helpers', function (done) {
     wrapper = new apiWrapper(options)
   })
 
-  describe('Build URL', function () {
+  describe('_reset', function () {
+    it('should reset internal properties', function (done) {
+      wrapper.useVersion('2.0').useDatabase('test')
+      wrapper.customVersion.should.eql('2.0')
+      wrapper._reset()
+      should.not.exist(wrapper.customVersion)
+      done()
+    })
+  })
 
-    it.skip('should use values from the options object', function (done) {
+  describe('_stripReservedProperties', function () {
+    it('should remove internal properties', function (done) {
+      var document = {
+        apiVersion: '1.0',
+        createdBy: 'test',
+        v: 1,
+        name: 'John'
+      }
+
+      document = wrapper._stripReservedProperties(document)
+      should.not.exist(document.v)
+      should.not.exist(document.apiVersion)
+      should.not.exist(document.createdBy)
+      done()
+    })
+  })
+
+  describe('Build URL', function () {
+    it('should use values from the options object', function (done) {
       var wrapperUrl = wrapper._buildURL()
-      //console.log(wrapperUrl)
       var parsedUrl = url.parse(wrapperUrl)
-      console.log(parsedUrl)
-      parsedUrl.hostname.should.eql(options.uri)
-      parsedUrl.port.should.eql(options.port)
+      var parsedOptionsUri = url.parse(options.uri)
+      parsedUrl.hostname.should.eql(parsedOptionsUri.hostname)
+      parsedUrl.port.should.eql(options.port.toString())
       done()
     })
 
+    // TODO: use a default version if none specified?
     it.skip('should use customDatabase if specified', function (done) {
       wrapper.useDatabase('test').in('collectionOne')
       var wrapperUrl = wrapper._buildURL()
@@ -91,6 +117,13 @@ describe('Helpers', function (done) {
       done()
     })
 
+    it('should build /count url if extractMetadata option specified', function (done) {
+      wrapper.useVersion('2.0').useDatabase('test').in('collectionOne')
+      var wrapperResult = wrapper.find({extractMetadata:true})
+      wrapperResult.uri.href.should.eql('http://0.0.0.0:8000/2.0/test/collectionOne/count')
+      done()
+    })
+
     it('should build /config url if option specified', function (done) {
       wrapper.useVersion('2.0').useDatabase('test').in('collectionOne')
       var wrapperUrl = wrapper._buildURL({config:true})
@@ -123,11 +156,22 @@ describe('Helpers', function (done) {
       done()
     })
 
-    it('should append limit to the querystring if specified', function (done) {
+    it('should append page to the querystring if specified', function (done) {
       var query = { filter: JSON.stringify({ name: 'John' }), page: 33 }
       var expectedQuerystring  = '?' + decodeURIComponent(querystring.stringify(query))
 
       wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John').goToPage(33)
+
+      var wrapperUrl = wrapper._buildURL({useParams: true})
+      wrapperUrl.should.eql('http://0.0.0.0:8000/1.0/test/collectionOne' + expectedQuerystring)
+      done()
+    })
+
+    it('should append limit to the querystring if specified', function (done) {
+      var query = { filter: JSON.stringify({ name: 'John' }), count: 10 }
+      var expectedQuerystring  = '?' + decodeURIComponent(querystring.stringify(query))
+
+      wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John').limitTo(10)
 
       var wrapperUrl = wrapper._buildURL({useParams: true})
       wrapperUrl.should.eql('http://0.0.0.0:8000/1.0/test/collectionOne' + expectedQuerystring)
@@ -163,7 +207,7 @@ describe('Helpers', function (done) {
       wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John').useFields(['name'])
 
       var wrapperUrl = wrapper._buildURL({useParams: true})
-      
+
       wrapperUrl.should.eql('http://0.0.0.0:8000/1.0/test/collectionOne' + expectedQuerystring)
       done()
     })
@@ -175,7 +219,7 @@ describe('Helpers', function (done) {
       wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John').withComposition(true)
 
       var wrapperUrl = wrapper._buildURL({useParams: true})
-      
+
       wrapperUrl.should.eql('http://0.0.0.0:8000/1.0/test/collectionOne' + expectedQuerystring)
       done()
     })

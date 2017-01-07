@@ -102,7 +102,7 @@ describe('Terminators', function (done) {
 
       done()
     })
-  })  
+  })
 
   describe('delete', function () {
     it('should throw an error if no query is specified', function () {
@@ -126,7 +126,7 @@ describe('Terminators', function (done) {
                                  .delete()
 
       var expectedUrl = wrapper._buildURL({useParams: false})
-      
+
       requestObject.method.should.eql('DELETE')
       JSON.stringify(requestObject.body).should.eql(JSON.stringify(query))
       requestObject.uri.href.should.eql(expectedUrl)
@@ -145,6 +145,26 @@ describe('Terminators', function (done) {
         .update()
       })
     })
+
+    it('should create the request object for updating each document from the query', function (done) {
+      var query = { query: { name: 'John Doe' } }
+      var expectedQuerystring  = '?' + querystring.stringify(query)
+
+      var requestObject = wrapper.useVersion('1.0')
+                                 .useDatabase('test')
+                                 .in('collectionOne')
+                                 .whereFieldIsEqualTo(field, value)
+                                 .update({ name: 'Jane Doe' })
+
+      var expectedUrl = wrapper._buildURL({useParams: false})
+
+      requestObject.method.should.eql('PUT')
+      requestObject.body.query.should.eql(query.query)
+      requestObject.body.update.should.eql({ name: 'Jane Doe' })
+      requestObject.uri.href.should.eql(expectedUrl)
+
+      done()
+    })
   })
 
   describe('find', function () {
@@ -159,7 +179,7 @@ describe('Terminators', function (done) {
         .find({extractResults: true})
 
       var expectedUrl = wrapper._buildURL({useParams: true})
-      
+
       requestObject.method.should.eql('GET')
       should.not.exist(requestObject.body)
       requestObject.uri.href.should.eql(expectedUrl)
@@ -170,8 +190,6 @@ describe('Terminators', function (done) {
 
   describe('getConfig', function (done) {
     it('should create the request object for getting a collection config', function (done) {
-      var query = { filter: JSON.stringify({ name: 'John' }) }
-
       var requestObject = wrapper
         .useVersion('1.0')
         .useDatabase('test')
@@ -179,9 +197,50 @@ describe('Terminators', function (done) {
         .getConfig()
 
       var expectedUrl = wrapper._buildURL({config: true})
-      
+
       requestObject.method.should.eql('GET')
       should.not.exist(requestObject.body)
+      requestObject.uri.href.should.eql(expectedUrl)
+
+      done()
+    })
+  })
+
+  describe('setConfig', function (done) {
+    it('should create the request object for updating the API config', function (done) {
+      var requestObject = wrapper
+        .setConfig({
+          server: {
+            host: '0.0.0.0'
+          }
+        })
+
+      var expectedUrl = wrapper._buildURL({config: true})
+
+      requestObject.method.should.eql('POST')
+      should.exist(requestObject.body)
+      requestObject.uri.href.should.eql(expectedUrl)
+
+      done()
+    })
+
+    it('should create the request object for updating a collection\'s config', function (done) {
+      var requestObject = wrapper
+        .useVersion('1.0')
+        .useDatabase('test')
+        .in('collectionOne')
+        .setConfig({
+          fields: {
+            field1: {
+              type: 'String'
+            }
+          }
+        })
+
+      var expectedUrl = wrapper._buildURL({config: true})
+
+      requestObject.method.should.eql('POST')
+      should.exist(requestObject.body)
       requestObject.uri.href.should.eql(expectedUrl)
 
       done()
@@ -199,7 +258,37 @@ describe('Terminators', function (done) {
         .getStats()
 
       var expectedUrl = wrapper._buildURL({stats: true})
-      
+
+      requestObject.method.should.eql('GET')
+      should.not.exist(requestObject.body)
+      requestObject.uri.href.should.eql(expectedUrl)
+
+      done()
+    })
+  })
+
+  describe('getStatus', function (done) {
+    it('should create the request object for getting the status endpoint', function (done) {
+      var requestObject = wrapper
+        .getStatus()
+
+      var expectedUrl = wrapper._buildURL({status: true})
+
+      requestObject.method.should.eql('POST')
+      should.not.exist(requestObject.body)
+      requestObject.uri.href.should.eql(expectedUrl)
+
+      done()
+    })
+  })
+
+  describe('getCollections', function (done) {
+    it('should create the request object for getting the collections endpoint', function (done) {
+      var requestObject = wrapper
+        .getCollections()
+
+      var expectedUrl = wrapper._buildURL({collections: true})
+
       requestObject.method.should.eql('GET')
       should.not.exist(requestObject.body)
       requestObject.uri.href.should.eql(expectedUrl)

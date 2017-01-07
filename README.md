@@ -3,7 +3,7 @@
 > Core high-level methods for interacting with DADI API
 
 [![npm (scoped)](https://img.shields.io/npm/v/@dadi/api-wrapper-core.svg?maxAge=10800&style=flat-square)](https://www.npmjs.com/package/@dadi/api-wrapper-core)
-![coverage](https://img.shields.io/badge/coverage-86%25-brightgreen.svg?style=flat-square)
+![coverage](https://img.shields.io/badge/coverage-95%25-brightgreen.svg?style=flat-square)
 [![Build Status](https://travis-ci.org/dadi/api-wrapper-core.svg?branch=master)](https://travis-ci.org/dadi/api-wrapper-core)
 [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com/)
 
