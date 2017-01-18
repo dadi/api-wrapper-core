@@ -28,6 +28,7 @@ It can be used as a standalone module to generate request objects containing inf
 
    ```js
    const APIWrapper = require('@dadi/api-wrapper-core')
+
    const api = new APIWrapper({
      uri: 'http://api.example.com',
      port: 80,
