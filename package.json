@@ -1,18 +1,19 @@
 {
   "name": "@dadi/api-wrapper-core",
-  "version": "1.1.0",
+  "version": "0.0.0-development",
   "description": "Core high-level methods for interacting with DADI API",
   "main": "index.js",
   "scripts": {
     "test": "standard 'lib/**/*.js' && NODE_ENV=test ./node_modules/.bin/istanbul cover --report cobertura --report text --report html --report lcov ./node_modules/.bin/_mocha test",
-    "posttest": "./scripts/coverage.js && make"
+    "posttest": "./scripts/coverage.js && make",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "author": "Eduardo Boucas <mail@eduardoboucas.com>",
   "license": "GPL",
   "dependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dadi/api-wrapper-core.git"
+    "url": "https://github.com/dadi/api-wrapper-core.git"
   },
   "bugs": {
     "url": "https://github.com/dadi/api-wrapper/issues"
@@ -28,6 +29,7 @@
     "sinon": "^1.17.4",
     "standard": "*",
     "supertest": "^1.2.0",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "semantic-release": "^6.3.2"
   }
 }
