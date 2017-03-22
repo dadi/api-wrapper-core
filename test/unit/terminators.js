@@ -90,6 +90,12 @@ describe('Terminators', function (done) {
 
       var wrapperUrl = wrapper._buildURL({useParams: false})
 
+      // Stripping `_id` out of `documents`
+      var documentsCopy = [
+        {name: documents[0].name},
+        {name: documents[1].name}
+      ]
+
       var requestObject = wrapper
         .useVersion('1.0')
         .useDatabase('test')
@@ -97,7 +103,7 @@ describe('Terminators', function (done) {
         .create(documents)
 
       requestObject.method.should.eql('POST')
-      JSON.stringify(requestObject.body).should.eql(JSON.stringify(documents))
+      JSON.stringify(requestObject.body).should.eql(JSON.stringify(documentsCopy))
       requestObject.uri.href.should.eql(wrapperUrl)
 
       done()
