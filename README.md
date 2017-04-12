@@ -572,6 +572,15 @@ Selects the collection to use.
 api.in('users')
 ```
 
+#### `.inMedia()`
+
+Selects the media collection.
+
+```js
+// Example
+api.inMedia()
+```
+
 #### `.useDatabase(database)`
 
 Selects the database to use. Overrides any database defined in the initialisation options, and is reset when called without arguments.
