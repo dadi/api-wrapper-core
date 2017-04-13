@@ -319,4 +319,57 @@ describe('Terminators', function (done) {
       done()
     })
   })
+
+  describe('getSignedUrl', function (done) {
+    it('should create the request object for getting a signed URL', function (done) {
+      var urlParameters = {
+        fileName: 'foobar.jpg',
+        mimetype: 'image/jpeg'
+      }
+
+      var requestObject = wrapper
+        .inMedia()
+        .getSignedUrl(urlParameters)
+
+      var expectedUrl = wrapper._buildURL({mediaSign: true})
+
+      requestObject.method.should.eql('POST')
+      requestObject.uri.href.should.eql(expectedUrl)
+      JSON.stringify(requestObject.body).should.eql(JSON.stringify(urlParameters))
+
+      done()
+    })
+  })
+
+  describe('callback option', function (done) {
+    it('should run a callback on the request object before returning, when defined', function (done) {
+      var optionsWithCallback = Object.assign({}, options, {
+        callback: function stringifyRequestObject (requestObject) {
+          return JSON.stringify(requestObject)
+        }
+      })
+
+      var wrapperWithCallback = new apiWrapper(optionsWithCallback)
+
+      var query = { filter: JSON.stringify({ name: 'John' }) }
+
+      var requestObject = wrapper
+        .useVersion('1.0')
+        .useDatabase('test')
+        .in('collectionOne')
+        .whereFieldIsEqualTo('name', 'John')
+        .find({extractResults: true})
+
+      var requestObjectWithCallback = wrapperWithCallback
+        .useVersion('1.0')
+        .useDatabase('test')
+        .in('collectionOne')
+        .whereFieldIsEqualTo('name', 'John')
+        .find({extractResults: true})
+
+      JSON.stringify(requestObject).should.eql(requestObjectWithCallback)
+
+      done()
+    })
+  })
 })

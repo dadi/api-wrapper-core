@@ -246,5 +246,15 @@ describe('Initialisation', function (done) {
       wrapper.getStats.should.be.Function
       done()
     })
+
+    it('should attach `getStatus` to the wrapper', function (done) {
+      wrapper.getStatus.should.be.Function
+      done()
+    })
+
+    it('should attach `getSignedUrl` to the wrapper', function (done) {
+      wrapper.getSignedUrl.should.be.Function
+      done()
+    })
   })
 })
