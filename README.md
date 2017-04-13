@@ -552,6 +552,28 @@ api.withComposition(true) // same as above
 api.withComposition(false)
 ```
 
+### Defining a callback
+
+By default, calling a terminator will return a request object, which is a plain JavaScript object formed of `method`, `uri` and, optionally, `body`. Alternatively, you can choose to specify what exactly terminators will return, by defining a callback that will be executed before they return. This callback will receive the request object as an argument, giving you the option to modify it or wrap it with something else.
+
+A callback is defined by setting a `callback` property on the options object used to initialise API wrapper.
+
+```js
+const APIWrapper = require('@dadi/api-wrapper-core')
+
+const api = new APIWrapper({
+  uri: 'http://api.example.com',
+  port: 80,
+  version: 'vjoin',
+  database: 'testdb',
+  callback: function (requestObject) {
+    // This callback will return a JSON-stringified version
+    // of the request object.
+    return JSON.stringify(requestObject)
+  }
+})
+```
+
 ### Other methods
 
 #### `.fromEndpoint(endpoint)`
