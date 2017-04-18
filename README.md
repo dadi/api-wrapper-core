@@ -227,6 +227,35 @@ api.getConfig()
 }
 ```
 
+#### `.getSignedUrl()`
+
+Gets a signed URL from a media collection.
+
+```js
+api.in('images')
+   .getSignedUrl({
+    fileName: "foobar.jpg"
+   })
+```
+
+*Output:*
+
+```json
+{
+  "body": {
+    "fileName": "foobar.jpg"
+  },
+  "method": "POST",
+  "uri": {
+    "href": "http://api.example.com:80/vjoin/testdb/images/sign",
+    "hostname": "api.example.com",
+    "path": "/vjoin/testdb/images/sign",
+    "port": "80",
+    "protocol": "http:"
+  }
+}
+```
+
 #### `.getStats()`
 
 Gets collection stats.
@@ -592,15 +621,6 @@ Selects the collection to use.
 ```js
 // Example
 api.in('users')
-```
-
-#### `.inMedia()`
-
-Selects the media collection.
-
-```js
-// Example
-api.inMedia()
 ```
 
 #### `.useDatabase(database)`
