@@ -194,23 +194,6 @@ describe('Terminators', function (done) {
     })
   })
 
-  describe('find', function (done) {
-    it('should create the request object for listing the media collection with query filters', function (done) {
-      var requestObject = wrapper
-        .inMedia()
-        .whereFieldIsEqualTo('_id', '12345678')
-        .find()
-
-      var expectedUrl = wrapper._buildURL({useParams: true})
-
-      requestObject.method.should.eql('GET')
-      should.not.exist(requestObject.body)
-      requestObject.uri.href.should.eql(expectedUrl)
-
-      done()
-    })
-  })
-
   describe('getConfig', function (done) {
     it('should create the request object for getting a collection config', function (done) {
       var requestObject = wrapper
@@ -328,10 +311,10 @@ describe('Terminators', function (done) {
       }
 
       var requestObject = wrapper
-        .inMedia()
+        .in('images')
         .getSignedUrl(urlParameters)
 
-      var expectedUrl = wrapper._buildURL({mediaSign: true})
+      var expectedUrl = wrapper._buildURL({signUrl: true})
 
       requestObject.method.should.eql('POST')
       requestObject.uri.href.should.eql(expectedUrl)
