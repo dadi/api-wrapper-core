@@ -663,7 +663,7 @@ done()</code></pre></dd>
   mimetype: 'image/jpeg'
 }
 var requestObject = wrapper
-  .in('images')
+  .inMedia('images')
   .getSignedUrl(urlParameters)
 var expectedUrl = wrapper._buildURL({signUrl: true})
 requestObject.method.should.eql('POST')

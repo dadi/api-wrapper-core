@@ -3,7 +3,7 @@
 > Core high-level methods for interacting with DADI API
 
 [![npm (scoped)](https://img.shields.io/npm/v/@dadi/api-wrapper-core.svg?maxAge=10800&style=flat-square)](https://www.npmjs.com/package/@dadi/api-wrapper-core)
-![coverage](https://img.shields.io/badge/coverage-95%25-brightgreen.svg?style=flat?style=flat-square)
+![coverage](https://img.shields.io/badge/coverage-94%25-brightgreen.svg?style=flat?style=flat-square)
 [![Build Status](https://travis-ci.org/dadi/api-wrapper-core.svg?branch=master)](https://travis-ci.org/dadi/api-wrapper-core)
 [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
@@ -247,9 +247,9 @@ api.in('images')
   },
   "method": "POST",
   "uri": {
-    "href": "http://api.example.com:80/vjoin/testdb/images/sign",
+    "href": "http://api.example.com:80/media/images/sign",
     "hostname": "api.example.com",
-    "path": "/vjoin/testdb/images/sign",
+    "path": "/media/images/sign",
     "port": "80",
     "protocol": "http:"
   }
@@ -599,6 +599,15 @@ Selects the collection to use.
 ```js
 // Example
 api.in('users')
+```
+
+#### `.inMedia(bucket)`
+
+Selects a media bucket to be used.
+
+```js
+// Example
+api.inMedia('images')
 ```
 
 #### `.useDatabase(database)`

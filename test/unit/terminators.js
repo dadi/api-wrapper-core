@@ -311,7 +311,7 @@ describe('Terminators', function (done) {
       }
 
       var requestObject = wrapper
-        .in('images')
+        .inMedia('images')
         .getSignedUrl(urlParameters)
 
       var expectedUrl = wrapper._buildURL({signUrl: true})
