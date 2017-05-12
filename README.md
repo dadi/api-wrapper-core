@@ -50,11 +50,9 @@ It can be used as a standalone module to generate request objects containing inf
 
 ## Methods
 
-Each query consists of a series of chained methods to form the request, always terminated by an operation method. There are 5 terminating operations that return a Promise with the result of one or more requests to the database: [`create()`](#create), [`delete()`](#delete), [`find()`](#find), [`apply()`](#apply) and [`update()`](#update).
+Each query consists of a series of chained methods to form the request, always containing a terminator method. Terminators return a Promise with the result of one or more requests to the database and can make use of a series of [filtering methods](#filters) to create the desired subset of documents to operate on.
 
-These operations (with the exception of `create()`) can make use of a series of [filtering methods](#filters) to create the desired subset of documents to operate on.
-
-### Operations
+### Terminators
 
 #### `.create()`
 
@@ -129,7 +127,7 @@ api.in('users')
 }
 ```
 
-#### `.find(options)`
+#### `.find()`
 
 Returns a list of documents.
 
@@ -154,10 +152,6 @@ api.in('users')
   }
 }
 ```
-
-`options` is one of the following:
-
-- `extractMetadata` (Boolean): Selects whether just the metadata object should be returned, rather than the entire API response (i.e. using the `/count` endpoint(.
 
 #### `.getCollections()`
 
@@ -397,7 +391,7 @@ api.in('users')
 
 ### Filters
 
-Filtering methods are used to create a subset of documents that will be affected by subsequent operation methods.
+Filtering methods are used to create a subset of documents that will be affected by subsequent operation terminators.
 
 #### `.goToPage(page)`
 
