@@ -3,7 +3,7 @@
 > Core high-level methods for interacting with DADI API
 
 [![npm (scoped)](https://img.shields.io/npm/v/@dadi/api-wrapper-core.svg?maxAge=10800&style=flat-square)](https://www.npmjs.com/package/@dadi/api-wrapper-core)
-![coverage](https://img.shields.io/badge/coverage-94%25-brightgreen.svg?style=flat?style=flat-square)
+![coverage](https://img.shields.io/badge/coverage-95%25-brightgreen.svg?style=flat?style=flat-square)
 [![Build Status](https://travis-ci.org/dadi/api-wrapper-core.svg?branch=master)](https://travis-ci.org/dadi/api-wrapper-core)
 [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
@@ -564,6 +564,15 @@ Filters documents where the value of `field` is not one of the elements of `matc
 api.whereFieldIsNotOneOf('name', ['Mark', 'Nathan', 'David'])
 ```
 
+#### `.whereHookNameIs(name)`
+
+Selects the hook with a given name.
+
+```js
+// Example
+api.whereFieldIsNotOneOf('name', ['Mark', 'Nathan', 'David'])
+```
+
 #### `.withComposition(value)`
 
 Defines whether nested documents should be resolved using composition. The default is to let API decide based on the queried collection's settings.
@@ -593,6 +602,15 @@ Selects the collection to use.
 ```js
 // Example
 api.in('users')
+```
+
+#### `.inHooks()`
+
+Selects "hook mode", meaning filters and terminators will operate on hooks and not on documents.
+
+```js
+// Example
+api.inMedia('images')
 ```
 
 #### `.inMedia(bucket)`

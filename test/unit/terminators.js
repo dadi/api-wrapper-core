@@ -355,4 +355,105 @@ describe('Terminators', function (done) {
       done()
     })
   })
+
+  describe('hooks', function () {
+    it('should create the request object for getting the list of hooks', function (done) {
+      var requestObject = wrapper
+        .inHooks()
+        .find()
+
+      var expectedUrl = wrapper._buildURL()
+
+      requestObject.method.should.eql('GET')
+      requestObject.uri.href.should.eql(expectedUrl)
+
+      done()
+    })
+
+    it('should create the request object for getting the source of a particular hook', function (done) {
+      var requestObject = wrapper
+        .inHooks()
+        .whereHookNameIs('slugify')
+        .find()
+
+      var expectedUrl = wrapper._buildURL()
+
+      requestObject.method.should.eql('GET')
+      requestObject.uri.href.should.eql(expectedUrl)
+
+      done()
+    })
+
+    it('should create the request object for updating a hook', function (done) {
+      var hookSource = 'console.log("hello")'
+      var requestObject = wrapper
+        .inHooks()
+        .whereHookNameIs('slugify')
+        .update(hookSource)
+
+      var expectedUrl = wrapper._buildURL()
+
+      requestObject.body.should.eql(hookSource)
+      requestObject.method.should.eql('PUT')
+      requestObject.uri.href.should.eql(expectedUrl)
+      requestObject.headers['content-type'].should.eql('text/plain')
+
+      done()
+    })
+
+    it('should throw when trying to update a hook without specifying its name', function (done) {
+      var requestObject = (function () {
+        wrapper
+          .inHooks()
+          .update('console.log("hello")')        
+      })
+
+      requestObject.should.throw()
+
+      done()
+    })
+
+    it('should create the request object for creating a hook', function (done) {
+      var hookSource = 'console.log("hello")'
+      var requestObject = wrapper
+        .inHooks()
+        .whereHookNameIs('slugify')
+        .create(hookSource)
+
+      var expectedUrl = wrapper._buildURL()
+
+      requestObject.body.should.eql(hookSource)
+      requestObject.method.should.eql('POST')
+      requestObject.uri.href.should.eql(expectedUrl)
+      requestObject.headers['content-type'].should.eql('text/plain')
+
+      done()
+    })
+
+    it('should throw when trying to create a hook without specifying its name', function (done) {
+      var requestObject = (function () {
+        wrapper
+          .inHooks()
+          .create('console.log("hello")')        
+      })
+
+      requestObject.should.throw()
+
+      done()
+    })
+
+    it('should create the request object for deleting a hook', function (done) {
+      var requestObject = wrapper
+        .inHooks()
+        .whereHookNameIs('slugify')
+        .delete()
+
+      var expectedUrl = wrapper._buildURL()
+
+      requestObject.method.should.eql('DELETE')
+      requestObject.uri.href.should.eql(expectedUrl)
+
+      done()
+    })
+  })  
 })
