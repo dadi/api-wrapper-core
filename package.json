@@ -30,6 +30,6 @@
     "standard": "*",
     "supertest": "^1.2.0",
     "underscore": "^1.8.3",
-    "semantic-release": "^6.3.2"
+    "semantic-release": "^6.3.6"
   }
 }
