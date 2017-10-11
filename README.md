@@ -286,7 +286,7 @@ api.getStatus()
 
 ```json
 {
-  "method": "GET",
+  "method": "POST",
   "uri": {
     "href": "http://api.example.com:80/api/status",
     "hostname": "api.example.com",
