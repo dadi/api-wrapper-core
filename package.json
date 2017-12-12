@@ -10,7 +10,10 @@
   },
   "author": "Eduardo Boucas <mail@eduardoboucas.com>",
   "license": "GPL",
-  "dependencies": {},
+  "dependencies": {
+    "query-string": "^5.0.1",
+    "url-parse": "^1.2.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/dadi/api-wrapper-core.git"
