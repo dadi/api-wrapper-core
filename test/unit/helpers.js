@@ -168,7 +168,7 @@ describe('Helpers', function (done) {
     })
 
     it('should append limit to the querystring if specified', function (done) {
-      var query = { filter: JSON.stringify({ name: 'John' }), count: 10 }
+      var query = { count: 10, filter: JSON.stringify({ name: 'John' }) }
       var expectedQuerystring  = '?' + decodeURIComponent(querystring.stringify(query))
 
       wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John').limitTo(10)
@@ -201,7 +201,7 @@ describe('Helpers', function (done) {
     })
 
     it('should append fields to the querystring if specified', function (done) {
-      var query = { filter: JSON.stringify({ name: 'John' }), fields: JSON.stringify({ name: 1 }) }
+      var query = { fields: JSON.stringify({ name: 1 }), filter: JSON.stringify({ name: 'John' }) }
       var expectedQuerystring  = '?' + decodeURIComponent(querystring.stringify(query))
 
       wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John').useFields(['name'])
@@ -213,7 +213,7 @@ describe('Helpers', function (done) {
     })
 
     it('should append compose value to the querystring if specified and `true`', function (done) {
-      var query = { filter: JSON.stringify({ name: 'John' }), compose: true }
+      var query = { compose: true, filter: JSON.stringify({ name: 'John' }) }
       var expectedQuerystring  = '?' + decodeURIComponent(querystring.stringify(query))
 
       wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John').withComposition(true)
@@ -225,7 +225,7 @@ describe('Helpers', function (done) {
     })
 
     it('should append compose value to the querystring if specified and `false`', function (done) {
-      var query = { filter: JSON.stringify({ name: 'John' }), compose: false }
+      var query = { compose: false, filter: JSON.stringify({ name: 'John' }) }
       var expectedQuerystring  = '?' + decodeURIComponent(querystring.stringify(query))
 
       wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John').withComposition(false)
@@ -243,6 +243,40 @@ describe('Helpers', function (done) {
 
       var wrapperUrl = wrapper._buildURL({useParams: true})
       wrapperUrl.should.eql('http://0.0.0.0:8000/1.0/test/collectionOne' + expectedQuerystring)
+      done()
+    })
+
+    it('should URL encode filter values', function (done) {
+      wrapper
+        .useVersion('1.0')
+        .useDatabase('test')
+        .in('collectionOne')
+        .whereFieldIsEqualTo('email', 'john+doe@somedomain.tech')
+        .useFields(['email'])
+
+      var wrapperUrl = wrapper._buildURL({useParams: true})
+
+      wrapperUrl.should.eql(
+        `http://0.0.0.0:8000/1.0/test/collectionOne?fields={"email":1}&filter={"email":"${encodeURIComponent('john+doe@somedomain.tech')}"}`
+      )
+
+      done()
+    })
+
+    it('should URL encode nested filter values', function (done) {
+      wrapper
+        .useVersion('1.0')
+        .useDatabase('test')
+        .in('collectionOne')
+        .whereFieldContains('email', 'john+doe@somedomain.tech')
+        .useFields(['email'])
+
+      var wrapperUrl = wrapper._buildURL({useParams: true})
+
+      wrapperUrl.should.eql(
+        `http://0.0.0.0:8000/1.0/test/collectionOne?fields={"email":1}&filter={"email":{"$regex":"${encodeURIComponent('john+doe@somedomain.tech')}"}}`
+      )
+
       done()
     })
   })
