@@ -11,8 +11,8 @@
   "author": "Eduardo Boucas <mail@eduardoboucas.com>",
   "license": "GPL",
   "dependencies": {
-    "query-string": "^5.0.1",
-    "url-parse": "^1.2.0"
+    "query-string": "5.0.1",
+    "url-parse": "1.2.0"
   },
   "repository": {
     "type": "git",
