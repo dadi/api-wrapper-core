@@ -312,5 +312,21 @@ describe('Helpers', function (done) {
 
       done()
     })
+
+    it('should not run encodeURIComponent for filter values that are null', function (done) {
+      wrapper
+        .useVersion('1.0')
+        .useDatabase('test')
+        .in('collectionOne')
+        .whereFieldExists('tmdbId')
+
+      var wrapperUrl = wrapper._buildURL({useParams: true})
+
+      wrapperUrl.should.eql(
+        `http://0.0.0.0:8000/1.0/test/collectionOne?filter={"tmdbId":{"$ne":null}}`
+      )
+
+      done()
+    })
   })
 })
