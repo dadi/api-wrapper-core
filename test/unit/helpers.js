@@ -106,48 +106,48 @@ describe('Helpers', function (done) {
     })
 
     it('should build /status url if option specified', function (done) {
-      var wrapperUrl = wrapper._buildURL({status:true})
+      var wrapperUrl = wrapper._buildURL({status: true})
       wrapperUrl.should.eql('http://0.0.0.0:8000/api/status')
       done()
     })
 
     it('should build /collections url if option specified', function (done) {
-      var wrapperUrl = wrapper._buildURL({collections:true})
+      var wrapperUrl = wrapper._buildURL({collections: true})
       wrapperUrl.should.eql('http://0.0.0.0:8000/api/collections')
       done()
     })
 
     it('should build /count url if extractMetadata option specified', function (done) {
       wrapper.useVersion('2.0').useDatabase('test').in('collectionOne')
-      var wrapperResult = wrapper.find({extractMetadata:true})
+      var wrapperResult = wrapper.find({extractMetadata: true})
       wrapperResult.uri.href.should.eql('http://0.0.0.0:8000/2.0/test/collectionOne/count')
       done()
     })
 
     it('should build /config url if option specified', function (done) {
       wrapper.useVersion('2.0').useDatabase('test').in('collectionOne')
-      var wrapperUrl = wrapper._buildURL({config:true})
+      var wrapperUrl = wrapper._buildURL({config: true})
       wrapperUrl.should.eql('http://0.0.0.0:8000/2.0/test/collectionOne/config')
       done()
     })
 
     it('should build /stats url if option specified', function (done) {
       wrapper.useVersion('2.0').useDatabase('test').in('collectionOne')
-      var wrapperUrl = wrapper._buildURL({stats:true})
+      var wrapperUrl = wrapper._buildURL({stats: true})
       wrapperUrl.should.eql('http://0.0.0.0:8000/2.0/test/collectionOne/stats')
       done()
     })
 
     it('should build id url if option specified', function (done) {
       wrapper.useVersion('2.0').useDatabase('test').in('collectionOne')
-      var wrapperUrl = wrapper._buildURL({id:123456})
+      var wrapperUrl = wrapper._buildURL({id: 123456})
       wrapperUrl.should.eql('http://0.0.0.0:8000/2.0/test/collectionOne/123456')
       done()
     })
 
     it('should append query to the querystring if specified', function (done) {
       var query = { filter: JSON.stringify({ name: 'John' }) }
-      var expectedQuerystring  = '?' + decodeURIComponent(querystring.stringify(query))
+      var expectedQuerystring = '?' + decodeURIComponent(querystring.stringify(query))
 
       wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John')
 
@@ -158,7 +158,7 @@ describe('Helpers', function (done) {
 
     it('should append page to the querystring if specified', function (done) {
       var query = { filter: JSON.stringify({ name: 'John' }), page: 33 }
-      var expectedQuerystring  = '?' + decodeURIComponent(querystring.stringify(query))
+      var expectedQuerystring = '?' + decodeURIComponent(querystring.stringify(query))
 
       wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John').goToPage(33)
 
@@ -169,7 +169,7 @@ describe('Helpers', function (done) {
 
     it('should append limit to the querystring if specified', function (done) {
       var query = { count: 10, filter: JSON.stringify({ name: 'John' }) }
-      var expectedQuerystring  = '?' + decodeURIComponent(querystring.stringify(query))
+      var expectedQuerystring = '?' + decodeURIComponent(querystring.stringify(query))
 
       wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John').limitTo(10)
 
@@ -180,7 +180,7 @@ describe('Helpers', function (done) {
 
     it('should not append limit to the querystring if a non-digit is specified', function (done) {
       var query = { filter: JSON.stringify({ name: 'John' }) }
-      var expectedQuerystring  = '?' + decodeURIComponent(querystring.stringify(query))
+      var expectedQuerystring = '?' + decodeURIComponent(querystring.stringify(query))
 
       wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John').limitTo('name')
 
@@ -191,7 +191,7 @@ describe('Helpers', function (done) {
 
     it('should append sort to the querystring if specified', function (done) {
       var query = { filter: JSON.stringify({ name: 'John' }), sort: JSON.stringify({ name: 1 }) }
-      var expectedQuerystring  = '?' + decodeURIComponent(querystring.stringify(query))
+      var expectedQuerystring = '?' + decodeURIComponent(querystring.stringify(query))
 
       wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John').sortBy('name', 'asc')
 
@@ -202,7 +202,7 @@ describe('Helpers', function (done) {
 
     it('should append fields to the querystring if specified', function (done) {
       var query = { fields: JSON.stringify({ name: 1 }), filter: JSON.stringify({ name: 'John' }) }
-      var expectedQuerystring  = '?' + decodeURIComponent(querystring.stringify(query))
+      var expectedQuerystring = '?' + decodeURIComponent(querystring.stringify(query))
 
       wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John').useFields(['name'])
 
@@ -214,7 +214,7 @@ describe('Helpers', function (done) {
 
     it('should append compose value to the querystring if specified and `true`', function (done) {
       var query = { compose: true, filter: JSON.stringify({ name: 'John' }) }
-      var expectedQuerystring  = '?' + decodeURIComponent(querystring.stringify(query))
+      var expectedQuerystring = '?' + decodeURIComponent(querystring.stringify(query))
 
       wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John').withComposition(true)
 
@@ -226,7 +226,7 @@ describe('Helpers', function (done) {
 
     it('should append compose value to the querystring if specified and `false`', function (done) {
       var query = { compose: false, filter: JSON.stringify({ name: 'John' }) }
-      var expectedQuerystring  = '?' + decodeURIComponent(querystring.stringify(query))
+      var expectedQuerystring = '?' + decodeURIComponent(querystring.stringify(query))
 
       wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John').withComposition(false)
 
@@ -237,7 +237,7 @@ describe('Helpers', function (done) {
 
     it('should append includeHistory value to the querystring if specified', function (done) {
       var query = { filter: JSON.stringify({ name: 'John' }), includeHistory: true }
-      var expectedQuerystring  = '?' + decodeURIComponent(querystring.stringify(query))
+      var expectedQuerystring = '?' + decodeURIComponent(querystring.stringify(query))
 
       wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John').includeHistory(true)
 
@@ -275,6 +275,39 @@ describe('Helpers', function (done) {
 
       wrapperUrl.should.eql(
         `http://0.0.0.0:8000/1.0/test/collectionOne?fields={"email":1}&filter={"email":{"$regex":"${encodeURIComponent('john+doe@somedomain.tech')}"}}`
+      )
+
+      done()
+    })
+
+    it('should handle filter values that are arrays', function (done) {
+      wrapper
+        .useVersion('1.0')
+        .useDatabase('test')
+        .in('collectionOne')
+        .whereFieldIsOneOf('email', ['john+doe@somedomain.tech', 'jane+doe@somedomain.tech'])
+        .useFields(['email'])
+
+      var wrapperUrl = wrapper._buildURL({useParams: true})
+
+      wrapperUrl.should.eql(
+        `http://0.0.0.0:8000/1.0/test/collectionOne?fields={"email":1}&filter={"email":{"$in":["${encodeURIComponent('john+doe@somedomain.tech')}","${encodeURIComponent('jane+doe@somedomain.tech')}"]}}`
+      )
+
+      done()
+    })
+
+    it('should not run encodeURIComponent for filter values that are boolean', function (done) {
+      wrapper
+        .useVersion('1.0')
+        .useDatabase('test')
+        .in('collectionOne')
+        .where({'tmdbId': {$exists: false}})
+
+      var wrapperUrl = wrapper._buildURL({useParams: true})
+
+      wrapperUrl.should.eql(
+        `http://0.0.0.0:8000/1.0/test/collectionOne?filter={"tmdbId":{"$exists":false}}`
       )
 
       done()
