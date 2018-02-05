@@ -328,5 +328,21 @@ describe('Helpers', function (done) {
 
       done()
     })
+
+    it('should not run encodeURIComponent for filter values that are numbers', function (done) {
+      wrapper
+        .useVersion('1.0')
+        .useDatabase('test')
+        .in('collectionOne')
+        .whereFieldIsEqualTo('status', 1)
+
+      var wrapperUrl = wrapper._buildURL({useParams: true})
+
+      wrapperUrl.should.eql(
+        `http://0.0.0.0:8000/1.0/test/collectionOne?filter={"status":1}`
+      )
+
+      done()
+    })
   })
 })
