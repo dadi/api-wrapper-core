@@ -13,7 +13,7 @@ const APIWrapper = function (options) {
     'v',
     'history',
     'composed'
-  ]  
+  ]
 }
 
 // -----------------------------------------

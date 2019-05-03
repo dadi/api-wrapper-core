@@ -54,7 +54,7 @@ describe('Filters', function (done) {
 
   it('should pass arguments given in `sortBy` to the wrapper', function (done) {
     wrapper.sortBy('name', 'desc')
-    wrapper.sort.should.eql({'name':-1})
+    wrapper.sort.should.eql({ 'name': -1 })
     done()
   })
 
@@ -66,7 +66,7 @@ describe('Filters', function (done) {
 
   it('should pass argument given in `useFields` to the wrapper', function (done) {
     wrapper.useFields(['name', '_id'])
-    wrapper.fields.should.eql(JSON.stringify({ name: 1, _id: 1}))
+    wrapper.fields.should.eql(JSON.stringify({ name: 1, _id: 1 }))
     done()
   })
 
