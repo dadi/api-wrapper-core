@@ -106,41 +106,41 @@ describe('Helpers', function (done) {
     })
 
     it('should build /status url if option specified', function (done) {
-      var wrapperUrl = wrapper._buildURL({status: true})
+      var wrapperUrl = wrapper._buildURL({ status: true })
       wrapperUrl.should.eql('http://0.0.0.0:8000/api/status')
       done()
     })
 
     it('should build /collections url if option specified', function (done) {
-      var wrapperUrl = wrapper._buildURL({collections: true})
+      var wrapperUrl = wrapper._buildURL({ collections: true })
       wrapperUrl.should.eql('http://0.0.0.0:8000/api/collections')
       done()
     })
 
     it('should build /count url if extractMetadata option specified', function (done) {
       wrapper.useVersion('2.0').useDatabase('test').in('collectionOne')
-      var wrapperResult = wrapper.find({extractMetadata: true})
+      var wrapperResult = wrapper.find({ extractMetadata: true })
       wrapperResult.uri.href.should.eql('http://0.0.0.0:8000/2.0/test/collectionOne/count')
       done()
     })
 
     it('should build /config url if option specified', function (done) {
       wrapper.useVersion('2.0').useDatabase('test').in('collectionOne')
-      var wrapperUrl = wrapper._buildURL({config: true})
+      var wrapperUrl = wrapper._buildURL({ config: true })
       wrapperUrl.should.eql('http://0.0.0.0:8000/2.0/test/collectionOne/config')
       done()
     })
 
     it('should build /stats url if option specified', function (done) {
       wrapper.useVersion('2.0').useDatabase('test').in('collectionOne')
-      var wrapperUrl = wrapper._buildURL({stats: true})
+      var wrapperUrl = wrapper._buildURL({ stats: true })
       wrapperUrl.should.eql('http://0.0.0.0:8000/2.0/test/collectionOne/stats')
       done()
     })
 
     it('should build id url if option specified', function (done) {
       wrapper.useVersion('2.0').useDatabase('test').in('collectionOne')
-      var wrapperUrl = wrapper._buildURL({id: 123456})
+      var wrapperUrl = wrapper._buildURL({ id: 123456 })
       wrapperUrl.should.eql('http://0.0.0.0:8000/2.0/test/collectionOne/123456')
       done()
     })
@@ -151,7 +151,7 @@ describe('Helpers', function (done) {
 
       wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John')
 
-      var wrapperUrl = wrapper._buildURL({useParams: true})
+      var wrapperUrl = wrapper._buildURL({ useParams: true })
       wrapperUrl.should.eql('http://0.0.0.0:8000/1.0/test/collectionOne' + expectedQuerystring)
       done()
     })
@@ -162,7 +162,7 @@ describe('Helpers', function (done) {
 
       wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John').goToPage(33)
 
-      var wrapperUrl = wrapper._buildURL({useParams: true})
+      var wrapperUrl = wrapper._buildURL({ useParams: true })
       wrapperUrl.should.eql('http://0.0.0.0:8000/1.0/test/collectionOne' + expectedQuerystring)
       done()
     })
@@ -173,7 +173,7 @@ describe('Helpers', function (done) {
 
       wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John').limitTo(10)
 
-      var wrapperUrl = wrapper._buildURL({useParams: true})
+      var wrapperUrl = wrapper._buildURL({ useParams: true })
       wrapperUrl.should.eql('http://0.0.0.0:8000/1.0/test/collectionOne' + expectedQuerystring)
       done()
     })
@@ -184,7 +184,7 @@ describe('Helpers', function (done) {
 
       wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John').limitTo('name')
 
-      var wrapperUrl = wrapper._buildURL({useParams: true})
+      var wrapperUrl = wrapper._buildURL({ useParams: true })
       wrapperUrl.should.eql('http://0.0.0.0:8000/1.0/test/collectionOne' + expectedQuerystring)
       done()
     })
@@ -195,7 +195,7 @@ describe('Helpers', function (done) {
 
       wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John').sortBy('name', 'asc')
 
-      var wrapperUrl = wrapper._buildURL({useParams: true})
+      var wrapperUrl = wrapper._buildURL({ useParams: true })
       wrapperUrl.should.eql('http://0.0.0.0:8000/1.0/test/collectionOne' + expectedQuerystring)
       done()
     })
@@ -206,7 +206,7 @@ describe('Helpers', function (done) {
 
       wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John').useFields(['name'])
 
-      var wrapperUrl = wrapper._buildURL({useParams: true})
+      var wrapperUrl = wrapper._buildURL({ useParams: true })
 
       wrapperUrl.should.eql('http://0.0.0.0:8000/1.0/test/collectionOne' + expectedQuerystring)
       done()
@@ -218,7 +218,7 @@ describe('Helpers', function (done) {
 
       wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John').withComposition(true)
 
-      var wrapperUrl = wrapper._buildURL({useParams: true})
+      var wrapperUrl = wrapper._buildURL({ useParams: true })
 
       wrapperUrl.should.eql('http://0.0.0.0:8000/1.0/test/collectionOne' + expectedQuerystring)
       done()
@@ -230,7 +230,7 @@ describe('Helpers', function (done) {
 
       wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John').withComposition(false)
 
-      var wrapperUrl = wrapper._buildURL({useParams: true})
+      var wrapperUrl = wrapper._buildURL({ useParams: true })
       wrapperUrl.should.eql('http://0.0.0.0:8000/1.0/test/collectionOne' + expectedQuerystring)
       done()
     })
@@ -241,7 +241,7 @@ describe('Helpers', function (done) {
 
       wrapper.useVersion('1.0').useDatabase('test').in('collectionOne').whereFieldIsEqualTo('name', 'John').includeHistory(true)
 
-      var wrapperUrl = wrapper._buildURL({useParams: true})
+      var wrapperUrl = wrapper._buildURL({ useParams: true })
       wrapperUrl.should.eql('http://0.0.0.0:8000/1.0/test/collectionOne' + expectedQuerystring)
       done()
     })
@@ -254,7 +254,7 @@ describe('Helpers', function (done) {
         .whereFieldIsEqualTo('email', 'john+doe@somedomain.tech')
         .useFields(['email'])
 
-      var wrapperUrl = wrapper._buildURL({useParams: true})
+      var wrapperUrl = wrapper._buildURL({ useParams: true })
 
       wrapperUrl.should.eql(
         `http://0.0.0.0:8000/1.0/test/collectionOne?fields={"email":1}&filter={"email":"${encodeURIComponent('john+doe@somedomain.tech')}"}`
@@ -271,7 +271,7 @@ describe('Helpers', function (done) {
         .whereFieldContains('email', 'john+doe@somedomain.tech')
         .useFields(['email'])
 
-      var wrapperUrl = wrapper._buildURL({useParams: true})
+      var wrapperUrl = wrapper._buildURL({ useParams: true })
 
       wrapperUrl.should.eql(
         `http://0.0.0.0:8000/1.0/test/collectionOne?fields={"email":1}&filter={"email":{"$regex":"${encodeURIComponent('john+doe@somedomain.tech')}"}}`
@@ -288,7 +288,7 @@ describe('Helpers', function (done) {
         .whereFieldIsOneOf('email', ['john+doe@somedomain.tech', 'jane+doe@somedomain.tech'])
         .useFields(['email'])
 
-      var wrapperUrl = wrapper._buildURL({useParams: true})
+      var wrapperUrl = wrapper._buildURL({ useParams: true })
 
       wrapperUrl.should.eql(
         `http://0.0.0.0:8000/1.0/test/collectionOne?fields={"email":1}&filter={"email":{"$in":["${encodeURIComponent('john+doe@somedomain.tech')}","${encodeURIComponent('jane+doe@somedomain.tech')}"]}}`
@@ -302,9 +302,9 @@ describe('Helpers', function (done) {
         .useVersion('1.0')
         .useDatabase('test')
         .in('collectionOne')
-        .where({'tmdbId': {$exists: false}})
+        .where({ 'tmdbId': { $exists: false } })
 
-      var wrapperUrl = wrapper._buildURL({useParams: true})
+      var wrapperUrl = wrapper._buildURL({ useParams: true })
 
       wrapperUrl.should.eql(
         `http://0.0.0.0:8000/1.0/test/collectionOne?filter={"tmdbId":{"$exists":false}}`
@@ -320,7 +320,7 @@ describe('Helpers', function (done) {
         .in('collectionOne')
         .whereFieldExists('tmdbId')
 
-      var wrapperUrl = wrapper._buildURL({useParams: true})
+      var wrapperUrl = wrapper._buildURL({ useParams: true })
 
       wrapperUrl.should.eql(
         `http://0.0.0.0:8000/1.0/test/collectionOne?filter={"tmdbId":{"$ne":null}}`
@@ -336,7 +336,7 @@ describe('Helpers', function (done) {
         .in('collectionOne')
         .whereFieldIsEqualTo('status', 1)
 
-      var wrapperUrl = wrapper._buildURL({useParams: true})
+      var wrapperUrl = wrapper._buildURL({ useParams: true })
 
       wrapperUrl.should.eql(
         `http://0.0.0.0:8000/1.0/test/collectionOne?filter={"status":1}`

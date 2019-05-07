@@ -71,8 +71,8 @@ describe('Terminators', function (done) {
     tokenScope = nock(options.uri + ':' + options.port)
       .post(options.tokenUrl)
       .reply(200, {
-        accessToken: "d08c2efb-c0d6-446a-ba84-4a4199c9e0c5",
-        tokenType: "Bearer",
+        accessToken: 'd08c2efb-c0d6-446a-ba84-4a4199c9e0c5',
+        tokenType: 'Bearer',
         expiresIn: 1800
       })
   })
@@ -80,20 +80,20 @@ describe('Terminators', function (done) {
   describe('create', function () {
     it('should create the request object for creating the documents', function (done) {
       var query = { filter: JSON.stringify({ name: 'John' }), page: 33 }
-      var expectedQuerystring  = '?' + querystring.stringify(query)
+      var expectedQuerystring = '?' + querystring.stringify(query)
 
       wrapper.useVersion('1.0')
-             .useDatabase('test')
-             .in('collectionOne')
-             .whereFieldIsEqualTo('name', 'John')
-             .goToPage(33)
+        .useDatabase('test')
+        .in('collectionOne')
+        .whereFieldIsEqualTo('name', 'John')
+        .goToPage(33)
 
-      var wrapperUrl = wrapper._buildURL({useParams: false})
+      var wrapperUrl = wrapper._buildURL({ useParams: false })
 
       // Stripping `_id` out of `documents`
       var documentsCopy = [
-        {name: documents[0].name},
-        {name: documents[1].name}
+        { name: documents[0].name },
+        { name: documents[1].name }
       ]
 
       var requestObject = wrapper
@@ -114,24 +114,24 @@ describe('Terminators', function (done) {
     it('should throw an error if no query is specified', function () {
       should.throws(function () {
         return wrapper
-        .useVersion('1.0')
-        .useDatabase('test')
-        .in('collectionOne')
-        .delete()
+          .useVersion('1.0')
+          .useDatabase('test')
+          .in('collectionOne')
+          .delete()
       })
     })
 
     it('should create the request object for deleting each document from the query', function (done) {
       var query = { query: { name: 'John Doe' } }
-      var expectedQuerystring  = '?' + querystring.stringify(query)
+      var expectedQuerystring = '?' + querystring.stringify(query)
 
       var requestObject = wrapper.useVersion('1.0')
-                                 .useDatabase('test')
-                                 .in('collectionOne')
-                                 .whereFieldIsEqualTo(field, value)
-                                 .delete()
+        .useDatabase('test')
+        .in('collectionOne')
+        .whereFieldIsEqualTo(field, value)
+        .delete()
 
-      var expectedUrl = wrapper._buildURL({useParams: false})
+      var expectedUrl = wrapper._buildURL({ useParams: false })
 
       requestObject.method.should.eql('DELETE')
       JSON.stringify(requestObject.body).should.eql(JSON.stringify(query))
@@ -145,24 +145,24 @@ describe('Terminators', function (done) {
     it('should throw an error if no query is specified', function () {
       should.throws(function () {
         return wrapper
-        .useVersion('1.0')
-        .useDatabase('test')
-        .in('collectionOne')
-        .update()
+          .useVersion('1.0')
+          .useDatabase('test')
+          .in('collectionOne')
+          .update()
       })
     })
 
     it('should create the request object for updating each document from the query', function (done) {
       var query = { query: { name: 'John Doe' } }
-      var expectedQuerystring  = '?' + querystring.stringify(query)
+      var expectedQuerystring = '?' + querystring.stringify(query)
 
       var requestObject = wrapper.useVersion('1.0')
-                                 .useDatabase('test')
-                                 .in('collectionOne')
-                                 .whereFieldIsEqualTo(field, value)
-                                 .update({ name: 'Jane Doe' })
+        .useDatabase('test')
+        .in('collectionOne')
+        .whereFieldIsEqualTo(field, value)
+        .update({ name: 'Jane Doe' })
 
-      var expectedUrl = wrapper._buildURL({useParams: false})
+      var expectedUrl = wrapper._buildURL({ useParams: false })
 
       requestObject.method.should.eql('PUT')
       requestObject.body.query.should.eql(query.query)
@@ -182,9 +182,9 @@ describe('Terminators', function (done) {
         .useDatabase('test')
         .in('collectionOne')
         .whereFieldIsEqualTo('name', 'John')
-        .find({extractResults: true})
+        .find({ extractResults: true })
 
-      var expectedUrl = wrapper._buildURL({useParams: true})
+      var expectedUrl = wrapper._buildURL({ useParams: true })
 
       requestObject.method.should.eql('GET')
       should.not.exist(requestObject.body)
@@ -202,7 +202,7 @@ describe('Terminators', function (done) {
         .in('collectionOne')
         .getConfig()
 
-      var expectedUrl = wrapper._buildURL({config: true})
+      var expectedUrl = wrapper._buildURL({ config: true })
 
       requestObject.method.should.eql('GET')
       should.not.exist(requestObject.body)
@@ -221,7 +221,7 @@ describe('Terminators', function (done) {
           }
         })
 
-      var expectedUrl = wrapper._buildURL({config: true})
+      var expectedUrl = wrapper._buildURL({ config: true })
 
       requestObject.method.should.eql('POST')
       should.exist(requestObject.body)
@@ -243,7 +243,7 @@ describe('Terminators', function (done) {
           }
         })
 
-      var expectedUrl = wrapper._buildURL({config: true})
+      var expectedUrl = wrapper._buildURL({ config: true })
 
       requestObject.method.should.eql('POST')
       should.exist(requestObject.body)
@@ -263,7 +263,7 @@ describe('Terminators', function (done) {
         .in('collectionOne')
         .getStats()
 
-      var expectedUrl = wrapper._buildURL({stats: true})
+      var expectedUrl = wrapper._buildURL({ stats: true })
 
       requestObject.method.should.eql('GET')
       should.not.exist(requestObject.body)
@@ -278,7 +278,7 @@ describe('Terminators', function (done) {
       var requestObject = wrapper
         .getStatus()
 
-      var expectedUrl = wrapper._buildURL({status: true})
+      var expectedUrl = wrapper._buildURL({ status: true })
 
       requestObject.method.should.eql('POST')
       should.not.exist(requestObject.body)
@@ -293,7 +293,7 @@ describe('Terminators', function (done) {
       var requestObject = wrapper
         .getCollections()
 
-      var expectedUrl = wrapper._buildURL({collections: true})
+      var expectedUrl = wrapper._buildURL({ collections: true })
 
       requestObject.method.should.eql('GET')
       should.not.exist(requestObject.body)
@@ -314,7 +314,7 @@ describe('Terminators', function (done) {
         .inMedia('images')
         .getSignedUrl(urlParameters)
 
-      var expectedUrl = wrapper._buildURL({signUrl: true})
+      var expectedUrl = wrapper._buildURL({ signUrl: true })
 
       requestObject.method.should.eql('POST')
       requestObject.uri.href.should.eql(expectedUrl)
@@ -341,14 +341,14 @@ describe('Terminators', function (done) {
         .useDatabase('test')
         .in('collectionOne')
         .whereFieldIsEqualTo('name', 'John')
-        .find({extractResults: true})
+        .find({ extractResults: true })
 
       var requestObjectWithCallback = wrapperWithCallback
         .useVersion('1.0')
         .useDatabase('test')
         .in('collectionOne')
         .whereFieldIsEqualTo('name', 'John')
-        .find({extractResults: true})
+        .find({ extractResults: true })
 
       JSON.stringify(requestObject).should.eql(requestObjectWithCallback)
 
@@ -402,11 +402,11 @@ describe('Terminators', function (done) {
     })
 
     it('should throw when trying to update a hook without specifying its name', function (done) {
-      var requestObject = (function () {
+      var requestObject = function () {
         wrapper
           .inHooks()
-          .update('console.log("hello")')        
-      })
+          .update('console.log("hello")')
+      }
 
       requestObject.should.throw()
 
@@ -431,11 +431,11 @@ describe('Terminators', function (done) {
     })
 
     it('should throw when trying to create a hook without specifying its name', function (done) {
-      var requestObject = (function () {
+      var requestObject = function () {
         wrapper
           .inHooks()
-          .create('console.log("hello")')        
-      })
+          .create('console.log("hello")')
+      }
 
       requestObject.should.throw()
 
@@ -455,5 +455,5 @@ describe('Terminators', function (done) {
 
       done()
     })
-  })  
+  })
 })

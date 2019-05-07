@@ -32,7 +32,6 @@ describe('Initialisation', function (done) {
   })
 
   it('should use defaults if options aren\'t provided', function (done) {
-
     delete options.port
 
     var wrapper = new apiWrapper(options)
@@ -41,7 +40,7 @@ describe('Initialisation', function (done) {
   })
 
   describe('Helpers', function () {
-    before(function() {
+    before(function () {
       wrapper = new apiWrapper(options)
     })
 
@@ -77,7 +76,7 @@ describe('Initialisation', function (done) {
   })
 
   describe('Filters', function () {
-    before(function() {
+    before(function () {
       wrapper = new apiWrapper(options)
     })
 
@@ -208,7 +207,7 @@ describe('Initialisation', function (done) {
   })
 
   describe('Terminators', function () {
-    before(function() {
+    before(function () {
       wrapper = new apiWrapper(options)
     })
 
